@@ -20,6 +20,7 @@
             align-items: center;
             justify-content: center;
             height: 48dvh;
+            /* filter:blur(1px); */
         }
 
         .months-container {
@@ -28,6 +29,19 @@
             font-size: 1rem;
             font-weight: 300;
             line-height: 2.5rem;
+            transform: scale(0.57);
+        }
+
+        @media (orientation: landscape) {
+            .months-container {
+                transform: scale(0.57);
+            }
+        }
+
+        @media (orientation: portrait) {
+            .months-container {
+                transform: scale(1);
+            }
         }
 
         .month {
