@@ -33,7 +33,10 @@ function getMoonPhaseDates(currentDate = new Date()) {
   const newMoonTime = new Date('1970-01-07T20:35:50.73Z').getTime()
   const currentMoonMonth = Math.floor((currentDate.getTime() - newMoonTime) / SYNODIC_MONTH_MILLIS)
   const previousNewMoon = new Date(newMoonTime + currentMoonMonth * SYNODIC_MONTH_MILLIS)
-  const preBeforeNewMoon = new Date(previousNewMoon.getTime() - SYNODIC_MONTH_MILLIS)
+  const prevNewMoonCeil = getBareDate(
+    new Date( new Date( previousNewMoon.setDate( new Date(previousNewMoon.getTime()).getDate() + 1 ) ) )
+  )
+  const preBeforeNewMoon = new Date(prevNewMoonCeil.getTime() - SYNODIC_MONTH_MILLIS)
   const beforeNewMoon = new Date(previousNewMoon)
   const afterNewMoon = new Date(previousNewMoon.getTime() + SYNODIC_MONTH_MILLIS)
   const postAfterNewMoon = new Date(previousNewMoon.getTime() + 2 * SYNODIC_MONTH_MILLIS)
@@ -53,4 +56,5 @@ export {
   getLastSaturday,
   getMoonDay,
   getMoonPhaseDates,
+  getBareDate,
 }

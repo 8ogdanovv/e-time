@@ -120,7 +120,7 @@ onMounted(() => {
 }
 
 #lunar-day-angle {
-  opacity: 0.33;
+  opacity: 0.428571;
   z-index: 0;
   transform: scale(1.5) rotate(calc((var(--moon-day) - 1) * 12deg));
   -webkit-transform: scale(1.5) rotate(calc((var(--moon-day) - 1) * 12deg));

@@ -1,4 +1,4 @@
-import { getFirstSunday, getLastSaturday, getMoonPhaseDates, getMoonDay } from './dateUtils'
+import { getFirstSunday, getLastSaturday, getMoonPhaseDates, getMoonDay, getBareDate } from './dateUtils'
 
 function getGregCalendar(date = new Date()) {
   const dateCopy = new Date(date.getTime())
@@ -48,7 +48,7 @@ function generateMonthWeeks(startDate, endDate, moonPhaseDates) {
     for (let i = 0; i < 5; i++) {
       week.push({
         date: currentDate.toISOString(),
-        moon: getMoonDay(currentDate),
+        moon: getMoonDay(currentDate) === 1 && i === 4 ? 30 : getMoonDay(currentDate),
         current: currentDate >= moonPhaseDates[1]
           && currentDate <= moonPhaseDates[2],
       })
