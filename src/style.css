@@ -17,11 +17,31 @@ body {
   margin: 0;
   display: flex;
   place-items: center;
-  min-width: 320px;
-  min-height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
 }
 
 #app {
   margin: 0 auto;
   text-align: center;
+}
+
+@media (orientation: landscape) {}
+@media (orientation: portrait) {}
+
+tbody tr :not(.current) {
+  background: #8884;
+  color: #000e;
+}
+
+table {
+  font-size: 3vmin;
+}
+
+td {
+  padding: 0.25rem;
+}
+
+th {
+  padding: 0.25rem 0;
 }

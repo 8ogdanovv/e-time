@@ -11,7 +11,11 @@
           </g>
         </defs>
         <g :transform="`translate(80 80)`">
-          <use v-for="angle in lineAngles" :key="angle" href="#lines" :transform="`rotate(${angle})`"></use>
+          <use
+            v-for="angle in lineAngles"
+            :key="angle" href="#lines"
+            :transform="`rotate(${angle})`"
+          ></use>
         </g>
       </svg>
 

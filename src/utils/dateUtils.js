@@ -16,22 +16,23 @@ function getMoonDay(date = new Date()) {
 function getFirstSunday(date = new Date()) {
   const firstDate = new Date(date.setDate(1))
   const firstDay = firstDate.getDay()
-  return firstDay > 0 ? new Date(firstDate.setDate(firstDate.getDate() - firstDay)) : firstDate
+  return firstDay > 0
+    ? new Date(firstDate.setDate(firstDate.getDate() - firstDay))
+    : firstDate
 }
 
 function getLastSaturday(date = new Date()) {
   const lastDate = new Date(new Date(date.setMonth(date.getMonth() + 1)).setDate(0))
   const lastDay = lastDate.getDay()
-  return lastDay < 6 ? new Date(lastDate.setDate(lastDate.getDate() + (6 - lastDay))) : lastDate
+  return lastDay < 6
+    ? new Date(lastDate.setDate(lastDate.getDate() + (6 - lastDay)))
+    : lastDate
 }
 
 function getMoonPhaseDates(currentDate = new Date()) {
   const newMoonTime = new Date('1970-01-07T20:35:50.73Z').getTime()
   const currentMoonMonth = Math.floor((currentDate.getTime() - newMoonTime) / SYNODIC_MONTH_MILLIS)
   const previousNewMoon = new Date(newMoonTime + currentMoonMonth * SYNODIC_MONTH_MILLIS)
-
-  console.log('Previous New Moon:', previousNewMoon.toISOString())
-
   const preBeforeNewMoon = new Date(previousNewMoon.getTime() - SYNODIC_MONTH_MILLIS)
   const beforeNewMoon = new Date(previousNewMoon)
   const afterNewMoon = new Date(previousNewMoon.getTime() + SYNODIC_MONTH_MILLIS)
@@ -42,10 +43,9 @@ function getMoonPhaseDates(currentDate = new Date()) {
     getBareDate(beforeNewMoon),
     getBareDate(afterNewMoon),
     getBareDate(postAfterNewMoon),
-  ];
+  ]
 
-  console.log(castedDates)
-  return castedDates;
+  return castedDates
 }
 
 export {
@@ -53,4 +53,4 @@ export {
   getLastSaturday,
   getMoonDay,
   getMoonPhaseDates,
-};
+}

@@ -1,6 +1,11 @@
 <template>
   <div class="greg-calendar">
-    <table v-for="(month, index) in months" :key="index" border="1" style="border-collapse: collapse;">
+    <table
+      v-for="(month, index) in months"
+      :key="index"
+      border="1"
+      style="border-collapse: collapse;"
+    >
       <thead>
         <tr>
           <th v-for="day in weekDays" :key="day">{{ day }}</th>
@@ -12,9 +17,11 @@
             v-for="day in week"
             :key="day.date"
             :data-date="day.date"
+            :title="`${day.date.slice(0, 10)} Solar date`"
             :data-moon="day.moon"
             :class="{
-              'moon-day': day.moon === getMoonDay(currentDate) && new Date(day.date).getMonth() === new Date().getMonth(),
+              'moon-day': day.moon === getMoonDay(currentDate)
+                && new Date(day.date).getMonth() === new Date().getMonth(),
               'current': day.current
             }"
           >
@@ -28,8 +35,9 @@
 
 <script setup>
 import { ref, defineProps } from 'vue'
-import { getFirstSunday, getLastSaturday, getMoonDay } from '../utils/dateUtils.js'
-import { getGregCalendar } from '../utils/getCalendar.js'
+import { getFirstSunday, getLastSaturday, getMoonDay } from '@/utils/dateUtils.js'
+import { getGregCalendar } from '@/utils/getCalendar.js'
+
 const { date } = defineProps(['date'])
 const currentDate = date || new Date()
 
@@ -37,12 +45,7 @@ const prevMonthData = getGregCalendar(new Date(getFirstSunday(new Date())))
 const currMonthData = getGregCalendar(new Date())
 const nextMonthData = getGregCalendar(new Date(getLastSaturday(new Date())))
 
-const months = ref([
-  prevMonthData,
-  currMonthData,
-  nextMonthData,
-])
-
+const months = ref([prevMonthData, currMonthData, nextMonthData])
 const weekDays = ref(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'])
 </script>
 
@@ -51,19 +54,47 @@ const weekDays = ref(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'])
   position: absolute;
   top: 0;
   left: 0;
+  width: 100dvw;
+  height: 50dvh;
   color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 1rem;
-  width: 100dvw;
-  height: 50dvh;
   z-index: 100;
 
-  .calendar-month {
-    table {
-      width: 100%;
-    }
+  .current {
+    background: #4c44;
+  }
+
+  .moon-day {
+    background: #fffa;
+    background: #4c4;
+  }
+
+  thead {
+    background: #4c4a;
+    color: white;
+  }
+}
+
+@media (orientation: landscape) {
+  .greg-calendar {
+    flex-direction: row;
+    top: 0;
+    left: 0;
+    width: 100dvw;
+    height: 50dvh;
+  }
+}
+
+@media (orientation: portrait) {
+  .greg-calendar {
+    flex-direction: column;
+    top: 0;
+    left: 50%;
+    width: 50dvw;
+    height: 100dvh;
   }
 }
 </style>

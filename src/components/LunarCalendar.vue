@@ -7,7 +7,12 @@
         </g>
       </defs>
       <g transform="translate(1000 1000)">
-        <use v-for="angle in backAngles" :key="angle" href="#back-angles" :transform="`rotate(${angle})`"></use>
+        <use
+          v-for="angle in backAngles"
+          :key="angle"
+          href="#back-angles"
+          :transform="`rotate(${angle})`"
+        ></use>
       </g>
     </svg>
 
@@ -18,7 +23,11 @@
         </g>
       </defs>
       <g transform="translate(1000 1000)">
-        <use v-for="angle in cardinalAngles" :key="angle" href="#six-cardinal" :transform="`rotate(${angle})`"></use>
+        <use
+          v-for="angle in cardinalAngles"
+          :key="angle" href="#six-cardinal"
+          :transform="`rotate(${angle})`"
+        ></use>
       </g>
     </svg>
 
@@ -26,7 +35,7 @@
       <polygon
         points="1000 1000 1000 0 1215 0"
         stroke="green"
-        fill="#4c4"
+        fill="#cb43cb"
         stroke-width="0"
       />
     </svg>
@@ -35,7 +44,7 @@
 
 <script setup>
 import { defineProps, ref, computed, onMounted } from 'vue'
-import { getMoonDay } from '../utils/dateUtils.js'
+import { getMoonDay } from '@/utils/dateUtils.js'
 
 const { background, date, refresh } = defineProps(['background', 'date', 'refresh'])
 
@@ -53,11 +62,7 @@ function passMoonDayFromJsToCss(date = new Date()) {
 
 onMounted(() => {
   passMoonDayFromJsToCss(date)
-  if (refreshInterval) {
-    setInterval(() => {
-      passMoonDayFromJsToCss(date)
-    }, refreshInterval)
-  }
+  if (refreshInterval) setInterval(() => passMoonDayFromJsToCss(date), refreshInterval)
 })
 </script>
 
@@ -86,7 +91,7 @@ onMounted(() => {
 .lunar-calendar::after {
   @extend %abs100dv;
   content: '';
-  background: attr(data-background);
+  /* background: url('../assets/nasa-moon-phases.gif'); */
 }
 
 #back-box,
@@ -94,10 +99,10 @@ onMounted(() => {
   @extend %abs100dv;
   top: 0;
   left: 0;
+  transform: scale(2.5);
 }
 
 #lunar-day-angle {
-  transform: scale(2);
 }
 
 #six-box {
@@ -105,18 +110,17 @@ onMounted(() => {
   z-index: 1;
 }
 .back-design {
-  stroke: #44cc4488;
+  stroke: #cb43cb88;
   stroke-width: 1px;
 }
 
 .six-cardinal {
-  stroke: #44cc4488;
+  stroke: #cb43cb;
   stroke-width: 6px;
 }
 
 #lunar-day-angle {
   opacity: 0.33;
-  @extend %abs100dv;
   z-index: 0;
   transform: scale(1.5) rotate(calc((var(--moon-day) - 1) * 12deg));
   -webkit-transform: scale(1.5) rotate(calc((var(--moon-day) - 1) * 12deg));
