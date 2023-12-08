@@ -1,6 +1,6 @@
 <template>
-  <div class="greg-calendar">
-    <table v-for="(month, index) in months" :key="index" border="1" style="border-collapse: collapse;">
+  <div class="moon-calendar">
+    <table v-for="(month, index) in moonMonths" :key="index" border="1" style="border-collapse: collapse;">
       <thead>
         <tr>
           <th v-for="day in weekDays" :key="day">{{ day }}</th>
@@ -27,29 +27,19 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue'
-import { getFirstSunday, getLastSaturday, getMoonDay } from '../utils/dateUtils.js'
-import { getGregCalendar } from '../utils/getCalendar.js'
-const { date } = defineProps(['date'])
-const currentDate = date || new Date()
+import { ref } from 'vue'
+import { getMoonDay } from '../utils/dateUtils.js'
+import { getMoonCalendar } from '../utils/getCalendar.js'
 
-const prevMonthData = getGregCalendar(new Date(getFirstSunday(new Date())))
-const currMonthData = getGregCalendar(new Date())
-const nextMonthData = getGregCalendar(new Date(getLastSaturday(new Date())))
-
-const months = ref([
-  prevMonthData,
-  currMonthData,
-  nextMonthData,
-])
-
-const weekDays = ref(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'])
+const currentDate = ref(new Date())
+const moonMonths = ref(getMoonCalendar(currentDate.value))
+const weekDays = ref(['Mon', 'Thu', 'Wed', 'Thu', 'Fri'])
 </script>
 
 <style lang="scss">
-.greg-calendar {
+.moon-calendar {
   position: absolute;
-  top: 0;
+  top: 50%;
   left: 0;
   color: white;
   display: flex;
@@ -59,11 +49,5 @@ const weekDays = ref(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'])
   width: 100dvw;
   height: 50dvh;
   z-index: 100;
-
-  .calendar-month {
-    table {
-      width: 100%;
-    }
-  }
 }
 </style>

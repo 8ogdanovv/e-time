@@ -1,27 +1,3 @@
-<script setup>
-import { ref, onMounted, defineProps, computed } from 'vue'
-
-const { date } = defineProps(['date'])
-const time = computed(() => date || new Date()).value
-
-const lineAngles = ref(Array.from({ length: 85 }, (_, index) => index * 6))
-
-function runWatch(time = new Date()) {
-  const seconds = '--seconds: -' + time.getSeconds() + 's'
-  const minutes = '--minutes: -' + ( time.getMinutes() * 60 + time.getSeconds() ) + 's'
-  const hours = '--hours: -' + ( time.getHours() * 3600 + time.getMinutes() * 60 + time.getSeconds() ) + 's'
-
-  document.querySelector('.watch__seconds-second').style = seconds
-  document.querySelector('.watch__minutes-minute').style = minutes
-  document.querySelector('.watch__hours-hour').style = hours
-}
-
-onMounted(() => {
-  console.log(time)
-  runWatch(time)
-})
-</script>
-
 <template>
   <div class="neon-clock" id="page">
     <div class="watch">
@@ -52,12 +28,46 @@ onMounted(() => {
   </div>
 </template>
 
+<script setup>
+import { ref, onMounted, defineProps, computed } from 'vue'
+
+const { date } = defineProps(['date'])
+const time = computed(() => date || new Date()).value
+
+const lineAngles = ref(Array.from({ length: 85 }, (_, index) => index * 6))
+
+function runWatch(time = new Date()) {
+  const seconds = '--seconds: -' + time.getSeconds() + 's'
+  const minutes = '--minutes: -' + ( time.getMinutes() * 60 + time.getSeconds() ) + 's'
+  const hours = '--hours: -' + ( time.getHours() * 3600 + time.getMinutes() * 60 + time.getSeconds() ) + 's'
+
+  document.querySelector('.watch__seconds-second').style = seconds
+  document.querySelector('.watch__minutes-minute').style = minutes
+  document.querySelector('.watch__hours-hour').style = hours
+}
+
+onMounted(() => {
+  runWatch(time)
+})
+</script>
+
 <style lang="scss" scoped>
 /* #region Extends */
 %abs100 {
   position: absolute;
   width: 100%;
   height: 100%;
+}
+
+%abs100max {
+  position: absolute;
+  width: 100vmax;
+  height: 100vmax;
+}
+
+%dv100 {
+  width: 100dvw;
+  height: 100dvh;
 }
 
 %flex-center {
@@ -126,11 +136,8 @@ $size-glow-blur: 0.1vmax;
 /* #endregion */
 .neon-clock {
   margin: 0;
-  width: 100dvw;
-  height: 100dvh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @extend %dv100;
+  @extend %flex-center;
   position: relative;
   overflow: hidden;
 }
@@ -151,21 +158,18 @@ $size-glow-blur: 0.1vmax;
   & > * {
     opacity: 0.68;
   }
-  margin: auto;
   width: $size-main;
   height: $size-main;
+  border: $size-circle dotted $c-circles;
   position: relative;
   @extend %flex-center;
   border-radius: 50%;
-  border-style: dotted;
-  border-color: $c-circles;
-  border-width: $size-circle;
 
   &__pad {
-    opacity: 0.5;
-    position: absolute;
     width: $size-pad;
     height: $size-pad;
+    position: absolute;
+    opacity: 0.5;
     &-lines {
       stroke: $c-lines;
       stroke-width: 3px;
@@ -188,10 +192,10 @@ $size-glow-blur: 0.1vmax;
       animation: seconding 60s var(--seconds) infinite;
 
       &::before {
-        border-radius: $size-br-radius;
         @include hand(50%, $seconds-hand-width);
         background: $c-seconds;
         box-shadow: 0 0 $size-glow $size-glow-blur $c-sec-glow;
+        border-radius: $size-br-radius;
       }
 
       &::after {
@@ -213,10 +217,10 @@ $size-glow-blur: 0.1vmax;
       animation: seconding 3600s linear var(--minutes) infinite;
 
       &::before {
-        border-radius: $size-br-radius;
         @include hand(45%, $minutes-hand-width);
         background: $c-minutes;
         box-shadow: 0 0 $size-glow $size-glow-blur $c-min-glow;
+        border-radius: $size-br-radius;
       }
 
       &::after {
@@ -236,10 +240,10 @@ $size-glow-blur: 0.1vmax;
       animation: seconding 43200s linear var(--hours) infinite;
 
       &::before {
-        border-radius: $size-br-radius;
         @include hand(40.5%, 4.5%);
         background: $c-hours;
         box-shadow: 0 0 $size-glow $size-glow-blur $c-hour-glow;
+        border-radius: $size-br-radius;
       }
 
       &::after {
@@ -253,9 +257,7 @@ $size-glow-blur: 0.1vmax;
 
 #back-box,
 #six-box {
-  position: absolute;
-  width: 100vmax;
-  height: 100vmax;
+  @extend %abs100max;
 }
 
 #back-box {
@@ -278,9 +280,7 @@ $size-glow-blur: 0.1vmax;
 
 #lunar-day-angle {
   opacity: 0.33;
-  position: absolute;
-  width: 100vmax;
-  height: 100vmax;
+  @extend %abs100max;
   z-index: 0;
   transform: scale(1.5) rotate(calc((var(--moon-day) - 1) * 12deg));
   -webkit-transform: scale(1.5) rotate(calc((var(--moon-day) - 1) * 12deg));

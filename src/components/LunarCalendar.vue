@@ -35,35 +35,24 @@
 
 <script setup>
 import { defineProps, ref, computed, onMounted } from 'vue'
+import { getMoonDay } from '../utils/dateUtils.js'
+
 const { background, date, refresh } = defineProps(['background', 'date', 'refresh'])
+
 const bgColorOrUrl = computed(() => 'url("' + background + '")' || '#000').value
-console.log(bgColorOrUrl)
 const refreshInterval = computed(() => refresh || null).value
 
 const backAngles = ref(Array.from({ length: 37 }, (_, index) => index * 12))
 const cardinalAngles = ref(Array.from({ length: 7 }, (_, index) => index * 60))
 
-const getMoonDay = (date = new Date()) => {
-  const newMoonTime = new Date('1970-01-07T20:35:50.73Z').getTime() // Define the time of the new moon closest to 01.01.1970 in UTC time
-  const synodicMonth = 29.530588853 * 24 * 60 * 60 * 1000 // Define the length of a synodic month in milliseconds
-  const now = date.getTime() // Define the current time in UTC time
-  const elapsedTime = now - newMoonTime // Calculate the time since the new moon closest to 01.01.1970
-  const synodicMonths = elapsedTime / synodicMonth // Calculate the number of synodic months since the new moon closest to 01.01.1970
-  const daysSinceNewMoon = synodicMonths * 29.530588853  // Calculate the number of days since the last new moon
-  const moonDay = Math.floor((daysSinceNewMoon % 29.530588853) + 1)  // Calculate the moon day
-
-  return moonDay
-}
-
 function passMoonDayFromJsToCss(date = new Date()) {
-  const moonDay = getMoonDay(date) // Calculate the moon day and store it in a variable.
-  const lunarDayAngle = document.querySelector('#lunar-day-angle') // Get the #lunar-day-angle element.
-  lunarDayAngle.style.setProperty('--moon-day', `${moonDay}`) // Set the value of the custom property --moon-day.
+  const moonDay = getMoonDay(date)
+  const lunarDayAngle = document.querySelector('#lunar-day-angle')
+  lunarDayAngle.style.setProperty('--moon-day', `${moonDay}`)
 }
 
 onMounted(() => {
   passMoonDayFromJsToCss(date)
-
   if (refreshInterval) {
     setInterval(() => {
       passMoonDayFromJsToCss(date)
@@ -73,38 +62,38 @@ onMounted(() => {
 </script>
 
 <style lang="scss">
-.lunar-calendar {
+%abs100dv {
   position: absolute;
+  width: 100dvw;
+  height: 100dvh;
+}
+
+.lunar-calendar {
+  @extend %abs100dv;
   top: 0;
   left: 0;
   display: flex;
-  justify-content: center;
   align-items: center;
-  width: 100dvw;
-  height: 100dvh;
+  justify-content: center;
   overflow: hidden;
   z-index: -1;
 
-  background-position: center;
   background-size: cover;
+  background-position: center;
   background-repeat: no-repeat;
 }
 
 .lunar-calendar::after {
-  position: absolute;
+  @extend %abs100dv;
   content: '';
-  width: 100dvw;
-  height: 100dvh;
   background: attr(data-background);
 }
 
 #back-box,
 #six-box {
-  position: absolute;
+  @extend %abs100dv;
   top: 0;
   left: 0;
-  width: 100dvw;
-  height: 100dvh;
 }
 
 #lunar-day-angle {
@@ -127,9 +116,7 @@ onMounted(() => {
 
 #lunar-day-angle {
   opacity: 0.33;
-  position: absolute;
-  width: 100vmax;
-  height: 100vmax;
+  @extend %abs100dv;
   z-index: 0;
   transform: scale(1.5) rotate(calc((var(--moon-day) - 1) * 12deg));
   -webkit-transform: scale(1.5) rotate(calc((var(--moon-day) - 1) * 12deg));
