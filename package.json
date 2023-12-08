@@ -1,5 +1,6 @@
 {
   "name": "interactive-web-calendar",
+  "homepage": "https://vadym4che.github.io/e-time",
   "private": true,
   "version": "0.0.0",
   "type": "module",
