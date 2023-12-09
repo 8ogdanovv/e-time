@@ -26,16 +26,34 @@ body {
   text-align: center;
 }
 
-@media (orientation: landscape) {}
-@media (orientation: portrait) {}
+@media (orientation: landscape) {
+  .table {
+    height: 50dvh !important;
+  }
 
-tbody tr :not(.current) {
-  background: #8884;
-  color: #000e;
+  .table.--table0,
+  .table.--table2 {
+    width: 50dvw !important;
+  }
+}
+@media (orientation: portrait) {
+  .table.--table0,
+  .table.--table2 {
+    height: 25dvh;
+  }
 }
 
 table {
   font-size: 3vmin;
+}
+
+thead {
+  height: calc((3vmin + 0.5rem) * 2);
+}
+
+.table.--table0,
+.table.--table2 {
+  font-size: 100%;
 }
 
 td {

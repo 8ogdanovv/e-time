@@ -5,6 +5,8 @@
       :key="index"
       border="1"
       style="border-collapse: collapse;"
+      class="table"
+      :class="'--table' + index"
     >
       <thead>
         <tr>
@@ -27,6 +29,10 @@
           >
             {{ new Date(day.date).getDate() }}
           </td>
+        </tr>
+
+        <tr v-if="!month[5]">
+          <td v-for="day in weekDays" :key="day">{{ day }}</td>
         </tr>
       </tbody>
     </table>
@@ -59,12 +65,25 @@ const weekDays = ref(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'])
   color: white;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: space-between;
+  /* gap: 1rem; */
   z-index: 100;
 
   .current {
     background: #4c44;
+  }
+
+  tbody tr :not(.current) {
+    background: #8884;
+    color: hsl(120, 25%, 25%);
+  }
+
+  .table {
+    width: 100%;
+  }
+
+  .table.--table1 {
+    flex-grow: 1;
   }
 
   .moon-day {

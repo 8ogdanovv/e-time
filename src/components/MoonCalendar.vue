@@ -5,14 +5,19 @@
       :key="index"
       border="1"
       style="border-collapse: collapse;"
+      class="table"
+      :class="'--table' + index"
     >
       <thead>
         <tr>
+          <th>{{ weekDays[4] }}</th>
           <th v-for="day in weekDays" :key="day">{{ day }}</th>
+          <th>{{ weekDays[4] }}</th>
         </tr>
       </thead>
       <tbody>
-        <tr v-for="week in month" :key="week">
+        <tr v-for="(week, index) in month" :key="week">
+          <th>{{ weekDays[index] || 'Fri' }}</th>
           <td
             v-for="day in week"
             :key="day.date"
@@ -36,6 +41,7 @@
           >
             {{ new Date(day.date).getDate() }}
           </td>
+          <th>{{ weekDays[index] || 'Fri' }}</th>
         </tr>
       </tbody>
     </table>
@@ -62,12 +68,25 @@ const weekDays = ref(['Mon', 'Tue', 'Wed', 'Thu', 'Fri'])
   color: white;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 1rem;
+  justify-content: space-between;
+  /* gap: 1rem; */
   z-index: 100;
 
   .current {
     background: #cb43cb44;
+  }
+
+  tbody tr :not(.current) {
+    background: #8884;
+    color: #503050;
+  }
+
+  .table {
+    width: 100%;
+  }
+
+  .table.--table1 {
+    flex-grow: 1;
   }
 
   .sun-day {
@@ -101,6 +120,9 @@ const weekDays = ref(['Mon', 'Tue', 'Wed', 'Thu', 'Fri'])
     left: 0;
     width: 50dvw;
     height: 100dvh;
+    /* gap: 1rem; */
   }
+
+
 }
 </style>
