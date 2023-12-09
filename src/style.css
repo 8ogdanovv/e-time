@@ -85,10 +85,6 @@ td:not(.current), .friday, .day-name {
   .container {
     grid-template-columns: 1fr 2fr 1fr;
   }
-
-  .--table1 {
-
-  }
 }
 @media (orientation: portrait) {
 
@@ -109,8 +105,9 @@ td:not(.current), .friday, .day-name {
     grid-template-rows: 1fr 2fr 1fr;
   }
 
-  .--table1 {
-    text-align: left;
+  .greg-calendar .--table1,
+  .moon-calendar .--table1 {
     letter-spacing: -0.35ch;
+    text-align: left;
   }
 }
