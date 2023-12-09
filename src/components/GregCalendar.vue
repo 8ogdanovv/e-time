@@ -24,7 +24,7 @@
             :class="{
               'moon-day': day.moon === getMoonDay(currentDate)
                 && new Date(day.date).getMonth() === new Date().getMonth(),
-              'current': day.current
+              'current': day.current && index === 1
             }"
           >
             {{ new Date(day.date).getDate() }}
@@ -74,8 +74,8 @@ const weekDays = ref(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'])
   }
 
   tbody tr :not(.current) {
-    background: #8884;
-    color: hsl(120, 25%, 25%);
+    background: #8885;
+    color: hsl(120, 40%, 40%);
   }
 
   .table {

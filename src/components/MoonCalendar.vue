@@ -16,7 +16,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(week, index) in month" :key="week">
+        <tr v-for="week in month" :key="week">
           <th>{{ 'Fri' }}</th>
           <td
             v-for="day in week"
@@ -36,7 +36,7 @@
                 && new Date(day.date).getMonth() === new Date().getMonth(),
               'sun-day': new Date(currentDate).getMonth() === new Date(day.date).getMonth()
                 && new Date(currentDate).getDate() === new Date(day.date).getDate(),
-              'current': day.current
+              'current': day.current && index === 1
             }"
           >
             {{ new Date(day.date).getDate() }}
@@ -77,8 +77,8 @@ const weekDays = ref(['Mon', 'Tue', 'Wed', 'Thu', 'Fri'])
   }
 
   tbody tr :not(.current) {
-    background: #8884;
-    color: #503050;
+    background: #8885;
+    color: hsl(300, 50%, 40%);
   }
 
   .table {

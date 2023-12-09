@@ -22,48 +22,6 @@ function getGregCalendar(date = new Date()) {
     calendar.push(week)
   }
 
-  if (calendar.length === 6) {
-    console.log(calendar[calendar.length - 1])
-  } else {
-    console.log(JSON.parse(`[
-      {
-          "date": "2023-12-31T06:03:47.022Z",
-          "moon": 19,
-          "current": true
-      },
-      {
-          "date": "2024-01-01T06:03:47.022Z",
-          "moon": 20,
-          "current": false
-      },
-      {
-          "date": "2024-01-02T06:03:47.022Z",
-          "moon": 21,
-          "current": false
-      },
-      {
-          "date": "2024-01-03T06:03:47.022Z",
-          "moon": 22,
-          "current": false
-      },
-      {
-          "date": "2024-01-04T06:03:47.022Z",
-          "moon": 23,
-          "current": false
-      },
-      {
-          "date": "2024-01-05T06:03:47.022Z",
-          "moon": 24,
-          "current": false
-      },
-      {
-          "date": "2024-01-06T06:03:47.022Z",
-          "moon": 25,
-          "current": false
-      }
-  ]`))
-  }
-
   return calendar
 }
 
