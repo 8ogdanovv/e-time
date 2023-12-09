@@ -73,7 +73,7 @@ td:not(.current), .friday, .day-name {
 
 .--table1 {
   font-size: 3dvh;
-  line-height: 1.5rem;
+  line-height: 100%;
   font-weight: bold;
 }
 
