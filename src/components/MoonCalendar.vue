@@ -17,7 +17,7 @@
       </thead>
       <tbody>
         <tr v-for="(week, index) in month" :key="week">
-          <th>{{ weekDays[index] || 'Fri' }}</th>
+          <th>{{ 'Fri' }}</th>
           <td
             v-for="day in week"
             :key="day.date"
@@ -41,7 +41,7 @@
           >
             {{ new Date(day.date).getDate() }}
           </td>
-          <th>{{ weekDays[index] || 'Fri' }}</th>
+          <th>{{ 'Fri' }}</th>
         </tr>
       </tbody>
     </table>

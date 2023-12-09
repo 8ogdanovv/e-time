@@ -102,9 +102,6 @@ onMounted(() => {
   transform: scale(2.5);
 }
 
-#lunar-day-angle {
-}
-
 #six-box {
   opacity: 0.5;
   z-index: 1;
@@ -122,10 +119,10 @@ onMounted(() => {
 #lunar-day-angle {
   opacity: 0.428571;
   z-index: 0;
-  transform: scale(1.5) rotate(calc((var(--moon-day) - 1) * 12deg));
-  -webkit-transform: scale(1.5) rotate(calc((var(--moon-day) - 1) * 12deg));
-  -moz-transform: scale(1.5) rotate(calc((var(--moon-day) - 1) * 12deg));
-  -ms-transform: scale(1.5) rotate(calc((var(--moon-day) - 1) * 12deg));
-  -o-transform: scale(1.5) rotate(calc((var(--moon-day) - 1) * 12deg));
+  transform: scale(2.5) rotate(calc((var(--moon-day) - 1) * 12deg));
+  -webkit-transform: scale(2.5) rotate(calc((var(--moon-day) - 1) * 12deg));
+  -moz-transform: scale(2.5) rotate(calc((var(--moon-day) - 1) * 12deg));
+  -ms-transform: scale(2.5) rotate(calc((var(--moon-day) - 1) * 12deg));
+  -o-transform: scale(2.5) rotate(calc((var(--moon-day) - 1) * 12deg));
 }
 </style>
