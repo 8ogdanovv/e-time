@@ -1,5 +1,5 @@
 <template>
-  <div class="lunar-calendar" :style="{ backgroundImage: bgColorOrUrl }">
+  <div class="lunar-calendar container">
     <svg viewBox="0 0 2000 2000" id="back-box">
       <defs>
         <g id="back-angles" class="back-design">
@@ -43,13 +43,10 @@
 </template>
 
 <script setup>
-import { defineProps, ref, computed, onMounted } from 'vue'
+import { defineProps, ref,onMounted } from 'vue'
 import { getMoonDay } from '@/utils/dateUtils.js'
 
-const { background, date, refresh } = defineProps(['background', 'date', 'refresh'])
-
-const bgColorOrUrl = computed(() => 'url("' + background + '")' || '#000').value
-const refreshInterval = computed(() => refresh || null).value
+const { date, refresh } = defineProps(['background', 'date', 'refresh'])
 
 const backAngles = ref(Array.from({ length: 37 }, (_, index) => index * 12))
 const cardinalAngles = ref(Array.from({ length: 7 }, (_, index) => index * 60))
@@ -81,7 +78,6 @@ onMounted(() => {
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  z-index: -1;
 
   background-size: cover;
   background-position: center;
@@ -117,7 +113,7 @@ onMounted(() => {
 }
 
 #lunar-day-angle {
-  opacity: 0.428571;
+  opacity: 0.571428;
   z-index: 0;
   transform: scale(2.5) rotate(calc((var(--moon-day) - 1) * 12deg));
   -webkit-transform: scale(2.5) rotate(calc((var(--moon-day) - 1) * 12deg));

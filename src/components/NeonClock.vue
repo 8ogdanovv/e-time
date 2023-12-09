@@ -1,5 +1,5 @@
 <template>
-  <div class="neon-clock" id="page">
+  <div class="neon-clock container" id="page">
     <div class="watch">
       <svg viewBox="0 0 160 160" class="watch__pad">
         <defs>
@@ -72,6 +72,9 @@ onMounted(() => {
 %dv100 {
   width: 100dvw;
   height: 100dvh;
+}
+
+#page {
 }
 
 %flex-center {

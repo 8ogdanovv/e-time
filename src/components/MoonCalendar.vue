@@ -1,10 +1,8 @@
 <template>
-  <div class="moon-calendar">
+  <div class="moon-calendar container">
     <table
       v-for="(month, index) in moonMonths"
       :key="index"
-      border="1"
-      style="border-collapse: collapse;"
       class="table"
       :class="'--table' + index"
     >
@@ -17,7 +15,7 @@
       </thead>
       <tbody>
         <tr v-for="week in month" :key="week">
-          <th>{{ 'Fri' }}</th>
+          <th class="friday">{{ 'Fr' }}</th>
           <td
             v-for="day in week"
             :key="day.date"
@@ -41,7 +39,7 @@
           >
             {{ new Date(day.date).getDate() }}
           </td>
-          <th>{{ 'Fri' }}</th>
+          <th class="friday">{{ 'Fr' }}</th>
         </tr>
       </tbody>
     </table>
@@ -55,59 +53,40 @@ import { getMoonCalendar } from '@/utils/getCalendar.js'
 
 const currentDate = ref(new Date())
 const moonMonths = ref(getMoonCalendar(currentDate.value))
-const weekDays = ref(['Mon', 'Tue', 'Wed', 'Thu', 'Fri'])
+const weekDays = ref(['Mo', 'Tu', 'We', 'Th', 'Fr'])
 </script>
 
 <style lang="scss">
 .moon-calendar {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 100dvw;
-  height: 50dvh;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  /* gap: 1rem; */
-  z-index: 100;
-
   .current {
-    background: #cb43cb44;
+    background: #cb43cb88;
   }
 
-  tbody tr :not(.current) {
-    background: #8885;
-    color: hsl(300, 50%, 40%);
-  }
-
-  .table {
-    width: 100%;
-  }
-
-  .table.--table1 {
-    flex-grow: 1;
+  .friday {
+    color: #000;
   }
 
   .sun-day {
-    background: #4c4a;
+    background: #4c44;
   }
 
-  .moon-day {
-    background: #cb43cbaa !important;
+  .moon-day,
+  .--table1 thead th {
+    background: #cb43cbbb;
+    filter: contrast(2);
   }
 
-  thead {
-    background: #cb43cbaa;
-    color: black;
+  .--table0,
+  .--table2 {
+    thead th {
+      background: #cb43cb88;
+    }
   }
 }
 
 @media (orientation: landscape) {
   .moon-calendar {
     flex-direction: row;
-    top: 50%;
-    left: 0;
     width: 100dvw;
     height: 50dvh;
   }
@@ -116,13 +95,8 @@ const weekDays = ref(['Mon', 'Tue', 'Wed', 'Thu', 'Fri'])
 @media (orientation: portrait) {
   .moon-calendar {
     flex-direction: column;
-    top: 0;
-    left: 0;
     width: 50dvw;
     height: 100dvh;
-    /* gap: 1rem; */
   }
-
-
 }
 </style>

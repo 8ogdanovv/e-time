@@ -1,10 +1,8 @@
 <template>
-  <div class="greg-calendar">
+  <div class="greg-calendar container">
     <table
       v-for="(month, index) in months"
       :key="index"
-      border="1"
-      style="border-collapse: collapse;"
       class="table"
       :class="'--table' + index"
     >
@@ -32,7 +30,7 @@
         </tr>
 
         <tr v-if="!month[5]">
-          <td v-for="day in weekDays" :key="day">{{ day }}</td>
+          <th v-for="day in weekDays" :key="day" class="day-name">{{ day }}</th>
         </tr>
       </tbody>
     </table>
@@ -52,56 +50,31 @@ const currMonthData = getGregCalendar(new Date())
 const nextMonthData = getGregCalendar(new Date(getLastSaturday(new Date())))
 
 const months = ref([prevMonthData, currMonthData, nextMonthData])
-const weekDays = ref(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'])
+const weekDays = ref(['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'])
 </script>
 
 <style lang="scss">
 .greg-calendar {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100dvw;
-  height: 50dvh;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  /* gap: 1rem; */
-  z-index: 100;
-
   .current {
     background: #4c44;
   }
 
-  tbody tr :not(.current) {
-    background: #8885;
-    color: hsl(120, 40%, 40%);
+  .moon-day,
+  .--table1 thead th {
+    background: #4c48;
+    filter: contrast(2);
   }
 
-  .table {
-    width: 100%;
-  }
-
-  .table.--table1 {
-    flex-grow: 1;
-  }
-
-  .moon-day {
-    background: #fffa;
-    background: #4c4;
-  }
-
-  thead {
-    background: #4c4a;
-    color: white;
+  .--table0,
+  .--table2 {
+    thead th {
+      background: #4c44;
+    }
   }
 }
 
 @media (orientation: landscape) {
   .greg-calendar {
-    flex-direction: row;
-    top: 0;
-    left: 0;
     width: 100dvw;
     height: 50dvh;
   }
@@ -109,9 +82,6 @@ const weekDays = ref(['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'])
 
 @media (orientation: portrait) {
   .greg-calendar {
-    flex-direction: column;
-    top: 0;
-    left: 50%;
     width: 50dvw;
     height: 100dvh;
   }

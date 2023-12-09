@@ -24,42 +24,93 @@ body {
 #app {
   margin: 0 auto;
   text-align: center;
+  background-color: #fff;
+  background: url('@/../public/nasa-moon-phases.gif');
+
+  width: 100dvw;
+  height: 100dvh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
 }
 
-@media (orientation: landscape) {
-  .table {
-    height: 50dvh !important;
-  }
-
-  .table.--table0,
-  .table.--table2 {
-    width: 50dvw !important;
-  }
+.calendars {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100dvw;
+  height: 100dvh;
+  display: grid;
+  overflow: hidden;
 }
-@media (orientation: portrait) {
-  .table.--table0,
-  .table.--table2 {
-    height: 25dvh;
-  }
+
+.container {
+  mix-blend-mode: screen;
+  display: grid;
 }
 
 table {
-  font-size: 3vmin;
+  margin: -2px;
+  border-spacing: 4px;
 }
 
-thead {
-  height: calc((3vmin + 0.5rem) * 2);
+th, td {
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
 }
 
-.table.--table0,
-.table.--table2 {
-  font-size: 100%;
+td:not(.current), .friday, .day-name {
+  background: #8886;
 }
 
-td {
-  padding: 0.25rem;
+.container:not(.lunar-calendar) {
+  z-index: 100;
 }
 
-th {
-  padding: 0.25rem 0;
+.--table1 {
+  font-size: 3dvh;
+  line-height: 1.5rem;
+  font-weight: bold;
+}
+
+@media (orientation: landscape) {
+  .calendars {
+    grid-template-rows: repeat(2, 1fr);
+  }
+
+  .container {
+    grid-template-columns: 1fr 2fr 1fr;
+  }
+
+  .--table1 {
+
+  }
+}
+@media (orientation: portrait) {
+
+  .greg-calendar {
+    grid-area: sun;
+  }
+
+  .moon-calendar {
+    grid-area: moon;
+  }
+
+  .calendars {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "moon sun";
+  }
+
+  .container {
+    grid-template-rows: 1fr 2fr 1fr;
+  }
+
+  .--table1 {
+    text-align: left;
+    letter-spacing: -0.35ch;
+  }
 }
