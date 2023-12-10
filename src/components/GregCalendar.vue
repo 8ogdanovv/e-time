@@ -14,16 +14,18 @@
       <tbody>
         <tr v-for="week in month" :key="week">
           <td
+            class="greg"
             v-for="day in week"
             :key="day.date"
             :data-date="day.date"
-            :title="`${day.date.slice(0, 10)} Solar date`"
             :data-moon="day.moon"
+            @click="(e) => $parent.handleDateClick(e, day, e.target)"
             :class="{
               'moon-day': day.moon === getMoonDay(currentDate)
-                && new Date(day.date).getMonth() === new Date().getMonth(),
+              && new Date(day.date).getMonth() === new Date().getMonth(),
               'current': day.current && index === 1
             }"
+            :title="`${day.date.slice(0, 10)} Solar date`"
           >
             {{ new Date(day.date).getDate() }}
           </td>
@@ -38,11 +40,12 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue'
+import { ref, defineProps, defineEmits } from 'vue'
 import { getFirstSunday, getLastSaturday, getMoonDay } from '@/utils/dateUtils.js'
 import { getGregCalendar } from '@/utils/getCalendar.js'
 
-const { date } = defineProps(['date'])
+const { date, eventHandler } = defineProps(['date', 'eventHandler'])
+const emit = defineEmits(['dateClick'])
 const currentDate = date || new Date()
 
 const prevMonthData = getGregCalendar(new Date(getFirstSunday(new Date())))
@@ -51,6 +54,20 @@ const nextMonthData = getGregCalendar(new Date(getLastSaturday(new Date())))
 
 const months = ref([prevMonthData, currMonthData, nextMonthData])
 const weekDays = ref(['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'])
+
+function handleDateClick(e, day) {
+  console.log('clicked on', e, day)
+  const info = {
+    date: day.date,
+    moon: day.moon,
+    current: day.current,
+    target: e.target
+  }
+  // eventHandler(info)
+  console.log(info)
+  console.table(emit)
+  // emit('dateClick', info)
+}
 </script>
 
 <style lang="scss">

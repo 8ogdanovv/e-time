@@ -59,7 +59,7 @@ function passMoonDayFromJsToCss(date = new Date()) {
 
 onMounted(() => {
   passMoonDayFromJsToCss(date)
-  if (refreshInterval) setInterval(() => passMoonDayFromJsToCss(date), refreshInterval)
+  if (refresh) setInterval(() => passMoonDayFromJsToCss(date), refresh)
 })
 </script>
 

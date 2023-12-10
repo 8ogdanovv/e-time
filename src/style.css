@@ -24,15 +24,6 @@ body {
 #app {
   margin: 0 auto;
   text-align: center;
-  background-color: #fff;
-  background: url('@/../public/nasa-moon-phases.gif');
-
-  width: 100dvw;
-  height: 100dvh;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-  position: relative;
 }
 
 .calendars {
@@ -43,6 +34,15 @@ body {
   height: 100dvh;
   display: grid;
   overflow: hidden;
+
+  background-color: #fff;
+  background: url('@/../public/nasa-moon-phases.gif');
+
+  width: 100dvw;
+  height: 100dvh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
 }
 
 .container {

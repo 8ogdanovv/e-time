@@ -17,10 +17,12 @@
         <tr v-for="week in month" :key="week">
           <th class="friday">{{ 'Fr' }}</th>
           <td
+            class="moon"
             v-for="day in week"
             :key="day.date"
             :data-date="day.date"
             :data-moon="day.moon"
+            @click="(e) => $parent.handleDateClick(e, day, e.target)"
             :title="
               day.moon === getMoonDay(currentDate)
                 && new Date(day.date).getMonth() === new Date().getMonth()
