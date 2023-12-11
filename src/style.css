@@ -26,6 +26,11 @@ body {
   text-align: center;
 }
 
+h1, h2, h3 {
+  margin: 0;
+  padding: 0;
+}
+
 .calendars {
   position: absolute;
   top: 0;
@@ -67,8 +72,16 @@ td:not(.current), .friday, .day-name {
   background: #8886;
 }
 
+td {
+  cursor: help;
+}
+
+button {
+  cursor: pointer;
+}
+
 .container:not(.lunar-calendar) {
-  z-index: 100;
+  z-index: 10;
 }
 
 .--table1 {

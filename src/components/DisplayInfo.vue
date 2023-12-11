@@ -10,10 +10,43 @@
         </h2>
         <button @click="closeInfo">X</button>
       </section>
-      <img v-if="dateClicked" :src="`@/../public/${dateClicked.moon}.png`" :alt="moonImage" class="moon-image">
-      <!-- <pre style="text-align: left;">
-        {{ dateClicked }}
-      </pre> -->
+      <section class="body">
+        <img :src="absPath + getTwoDigits(dateClicked.moon) + '.png'" :alt="moonImage" class="moon-image">
+
+        <table>
+          <thead>
+            <tr>
+              <th><small>phase type:</small></th>
+              <th v-for="type, index in types" :key="index">{{ type }}</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th><small>phase % 5:</small></th>
+              <td
+                v-for="type, index in types" :key="index"
+                :class="{'active': dateClicked.moon % 5 === index + 1}"
+              >
+                {{ index + 1 }}
+              </td>
+            </tr>
+            <tr>
+              <th><small>elements:</small></th>
+              <td v-for="element, index in elements" :key="index">{{ element }}</td>
+            </tr>
+            <tr>
+              <th><small>similarity:</small></th>
+              <td v-for="number, index in numbers" :key="index">
+                {{
+                  (dateClicked.moon - 1) % 5 === index
+                  ? numbers[dateClicked.moon % 5].filter(n => n !== dateClicked.moon).join(',')
+                  : ''
+                }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
 
       <button @click="closeInfo">Ok</button>
     </div>
@@ -23,7 +56,42 @@
 <script setup>
 import { defineExpose, ref } from 'vue'
 
+const base = import.meta.env.BASE_URL
+const absPath = window.location.origin + base
+
 const dateClicked = ref(null);
+
+const getTwoDigits = (moon) => String(moon).length < 2 ? '0' + moon : moon;
+
+const types = ['Nanda', 'Bhadra', 'Jāya', 'Ṛkta', 'Pūrṇa']
+const elements = ['Fire', 'Earth', 'Ākāśa', 'Water', 'Vāyu']
+
+const numbers = [
+  [5, 10, 15, 20, 25, 30],
+  [1, 6, 11, 16, 21, 26],
+  [2, 7, 12, 17, 22, 27],
+  [3, 8, 13, 18, 23, 28],
+  [4, 9, 14, 19, 24, 29],
+]
+
+const tithis = [
+  'Amavasya (New Moon)',
+  'Pratipada',
+  'Dwitiya',
+  'Tritiya',
+  'Chaturthi',
+  'Panchami',
+  'Shashthi',
+  'Saptami',
+  'Ashtami (Half Moon)',
+  'Navami',
+  'Dashami',
+  'Ekadasi',
+  'Dwadashi',
+  'Trayodashi',
+  'Chaturdashi',
+  'Purnima (Full Moon)',
+]
 
 const closeInfo = () => dateClicked.value = null
 
@@ -42,58 +110,87 @@ defineExpose({ handleDateClick })
     background: radial-gradient(#000 10%, #0008 100%);
     color: #fff;
     position: absolute;
-    width: 70dvw;
-    height: 70dvh;
+    width: 80dvw;
+    height: 80dvh;
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
     z-index: 555;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
+    display: grid;
     gap: 3dvh;
     padding: 3dvh;
-    border-radius: 2%;
+    border-radius: 5vmin;
+    justify-items: center;
+
+    @media (orientation: portrait) {
+      grid-template-rows: 1fr 5fr 1fr;
+    }
+
+    @media (orientation: landscape) {
+      grid-template-rows: 1fr 5fr 1fr;
+    }
 
     h3 {
       padding: 0;
     }
 
-    .moon-image {
-      width: 50%;
-      height: auto;
-      display: inline-flex;
+    .body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-around;
       width: 100%;
-      background-color: #000;
-      padding: 2dvh 10dvh;
-      border-radius: 1dvh;
+      background: #0008;
+      position: relative;
+      border-radius: 5vmin;
+      .moon-image {
+        width: auto;
+        height: 25vmin;
+        display: inline-flex;
+        background-color: #000;
+        padding: 3vmin calc((100% - 25vmin) / 2);
+        margin: 0 auto;
+        border-radius: 5vmin;
+      }
+    }
+
+    .active {
+      filter: invert(1);
+      background: #0006;
     }
 
     .head {
       display: flex;
-      justify-content: space-between;
       width: 100%;
       text-align: left;
+      justify-content: space-between;
 
       button {
+        position: relative;
         width: 7vmin;
         height: 7vmin;
         font-size: 4vmin;
         font-weight: bold;
         border-radius: 50%;
-        color: #fff;
-        background: transparent;
-        box-shadow: inset 0 0 1vmin 0.5vmin #fffa;
       }
     }
   }
 
   button {
-    width: 10dvh;
-    height: 5dvh;
-    border-radius: 2.5dvh;
-    font-size: 4dvh;
+    width: 17vmin;
+    height: 7vmin;
+    border-radius: 3.5vmin;
+    mix-blend-mode: screen;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  button {
+    font-size: 4vmin;
+    color: #fff;
+    background: #8888;
+    box-shadow: inset 0 0 1vmin 0.5vmin #fffa;
   }
 }
 </style>

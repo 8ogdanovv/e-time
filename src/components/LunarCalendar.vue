@@ -68,6 +68,7 @@ onMounted(() => {
   position: absolute;
   width: 100dvw;
   height: 100dvh;
+  z-index: 1;
 }
 
 .lunar-calendar {
