@@ -1,12 +1,16 @@
 <template>
-  <div class="display-info calendars">
+  <div class="display-info calendars" @mouseover="handleMouseOver">
+
+    <span class="light-spot"></span>
     <slot @dateClick="handleDateClick"></slot>
 
     <div v-if="dateClicked" class="info">
       <section class="head">
         <h2>
-          Date: {{ new Date(dateClicked.date).toLocaleDateString() }}<br><br>
-          Moon-phase: {{ dateClicked.moon }}
+          Date: {{ new Date(dateClicked.date).toLocaleDateString() }}<br>
+          Moon-phase: {{ dateClicked.moon }}<br>
+          Vedic name: {{ dateClicked.moon !== 15 ? tithis[dateClicked.moon % 15] : tithis[15] }}<br>
+          Waxing/wanning (Pakṣa): {{ dateClicked.moon <= 15 ? 'Śukla 🌛 Bright' : 'Kṛṣṇa 🌜 Dark'}}
         </h2>
         <button @click="closeInfo">X</button>
       </section>
@@ -54,7 +58,7 @@
 </template>
 
 <script setup>
-import { defineExpose, ref } from 'vue'
+import { defineExpose, ref, onMounted } from 'vue'
 
 const base = import.meta.env.BASE_URL
 const absPath = window.location.origin + base
@@ -95,9 +99,11 @@ const tithis = [
 
 const closeInfo = () => dateClicked.value = null
 
+const showLightSpot = ref(false);
+
 function handleDateClick(e, info, target) {
   const targetClasses = target.classList.value.split(' ')
-  console.log(e, info, targetClasses.includes('greg'))
+  // console.log(e, info, targetClasses.includes('greg'))
   dateClicked.value = info
 }
 
@@ -106,6 +112,7 @@ defineExpose({ handleDateClick })
 
 <style lang="scss">
 .display-info {
+
   .info {
     background: radial-gradient(#000 10%, #0008 100%);
     color: #fff;
@@ -117,7 +124,6 @@ defineExpose({ handleDateClick })
     left: 50%;
     z-index: 555;
     display: grid;
-    gap: 3dvh;
     padding: 3dvh;
     border-radius: 5vmin;
     justify-items: center;
@@ -166,7 +172,7 @@ defineExpose({ handleDateClick })
       justify-content: space-between;
 
       button {
-        position: relative;
+        margin: 0 0 0 auto;
         width: 7vmin;
         height: 7vmin;
         font-size: 4vmin;
@@ -184,6 +190,7 @@ defineExpose({ handleDateClick })
     display: inline-flex;
     align-items: center;
     justify-content: center;
+    margin: auto;
   }
 
   button {
