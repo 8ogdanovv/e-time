@@ -1,7 +1,7 @@
 <template>
   <div class="greg-calendar container">
     <table
-      v-for="(month, index) in months"
+      v-for="month, index in months"
       :key="index"
       class="table"
       :class="'--table' + index"
@@ -21,9 +21,9 @@
             :data-moon="day.moon"
             @click="(e) => $parent.handleDateClick(e, day, e.target)"
             :class="{
-              'moon-day': day.moon === getMoonDay(currentDate)
+              'moon-day': day.moon === getMoonDay(currentDate) && day.current
               && new Date(day.date).getMonth() === new Date().getMonth(),
-              'current': day.current && index === 1
+              current: day.current
             }"
             :title="`${day.date.slice(0, 10)} Solar date`"
           >
@@ -49,7 +49,7 @@ const emit = defineEmits(['dateClick'])
 const currentDate = date || new Date()
 
 const prevMonthData = getGregCalendar(new Date(getFirstSunday(new Date())))
-const currMonthData = getGregCalendar(new Date())
+const currMonthData = getGregCalendar(new Date(), true)
 const nextMonthData = getGregCalendar(new Date(getLastSaturday(new Date())))
 
 const months = ref([prevMonthData, currMonthData, nextMonthData])
@@ -92,15 +92,11 @@ function handleDateClick(e, day) {
 
 @media (orientation: landscape) {
   .greg-calendar {
-    width: 100dvw;
-    height: 50dvh;
   }
 }
 
 @media (orientation: portrait) {
   .greg-calendar {
-    width: 50dvw;
-    height: 100dvh;
   }
 }
 </style>

@@ -19,13 +19,13 @@
 
         <table>
           <thead>
-            <tr>
-              <th><small>phase type:</small></th>
-              <th v-for="type, index in types" :key="index">{{ type }}</th>
+            <tr class="info-table-row">
+              <th ><small>phase type:</small></th>
+              <th v-for="type, index in types" :key="index" class="info-table-item">{{ type }}</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr class="info-table-row">
               <th><small>phase % 5:</small></th>
               <td
                 v-for="type, index in types" :key="index"
@@ -34,11 +34,11 @@
                 {{ index + 1 }}
               </td>
             </tr>
-            <tr>
+            <tr class="info-table-row">
               <th><small>elements:</small></th>
               <td v-for="element, index in elements" :key="index">{{ element }}</td>
             </tr>
-            <tr>
+            <tr class="info-table-row">
               <th><small>similarity:</small></th>
               <td v-for="number, index in numbers" :key="index">
                 {{
@@ -117,16 +117,15 @@ defineExpose({ handleDateClick })
     background: radial-gradient(#000 10%, #0008 100%);
     color: #fff;
     position: absolute;
-    width: 80dvw;
-    height: 80dvh;
+    width: 90dvw;
+    height: 90dvh;
+    padding: 5dvh 5dvw;
     transform: translate(-50%, -50%);
     top: 50%;
     left: 50%;
     z-index: 555;
     display: grid;
-    padding: 3dvh;
     border-radius: 5vmin;
-    justify-items: center;
 
     @media (orientation: portrait) {
       grid-template-rows: 1fr 5fr 1fr;
@@ -145,7 +144,7 @@ defineExpose({ handleDateClick })
       flex-direction: column;
       align-items: center;
       justify-content: space-around;
-      width: 100%;
+      width: 80dvw;
       background: #0008;
       position: relative;
       border-radius: 5vmin;
@@ -158,6 +157,13 @@ defineExpose({ handleDateClick })
         margin: 0 auto;
         border-radius: 5vmin;
       }
+
+      font-size: 2.5vmin;
+
+      th {
+        margin: 0 -1vmin;
+        padding: 1vmin;
+      }
     }
 
     .active {
@@ -167,7 +173,7 @@ defineExpose({ handleDateClick })
 
     .head {
       display: flex;
-      width: 100%;
+      width: 80dvw;
       text-align: left;
       justify-content: space-between;
 
@@ -191,9 +197,6 @@ defineExpose({ handleDateClick })
     align-items: center;
     justify-content: center;
     margin: auto;
-  }
-
-  button {
     font-size: 4vmin;
     color: #fff;
     background: #8888;

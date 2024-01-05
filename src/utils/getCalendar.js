@@ -1,6 +1,6 @@
 import { getFirstSunday, getLastSaturday, getMoonPhaseDates, getMoonDay, getBareDate } from './dateUtils'
 
-function getGregCalendar(date = new Date()) {
+function getGregCalendar(date = new Date(), isCurrent = false) {
   const dateCopy = new Date(date.getTime())
   const calendar = []
   let currentDate = getFirstSunday(date)
@@ -13,7 +13,7 @@ function getGregCalendar(date = new Date()) {
       week.push({
         date: currentDate.toISOString(),
         moon: getMoonDay(currentDate),
-        current: currentDate.getMonth() === new Date().getMonth(),
+        current: currentDate.getMonth() === new Date().getMonth() && isCurrent,
       })
       currentDate.setDate(currentDate.getDate() + 1)
 
@@ -43,7 +43,7 @@ function generateMonthWeeks(startDate, endDate, moonPhaseDates) {
   const weeks = []
   let currentDate = new Date(startDate)
 
-  while (currentDate <= endDate) {
+  while (currentDate <= endDate && weeks.length < 6) {
     const week = []
 
     for (let i = 0; i < 5; i++) {

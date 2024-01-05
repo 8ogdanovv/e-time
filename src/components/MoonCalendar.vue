@@ -78,6 +78,17 @@ const weekDays = ref(['Mo', 'Tu', 'We', 'Th', 'Fr'])
     filter: contrast(2);
   }
 
+/*  [data-moon]::after {
+    content: attr(data-moon);
+    position: absolute;
+    background: #8888;
+
+    width: 100%;
+  
+    top: 0;
+    left: 0;
+  }
+*/
   .--table0,
   .--table2 {
     thead th {
@@ -88,17 +99,11 @@ const weekDays = ref(['Mo', 'Tu', 'We', 'Th', 'Fr'])
 
 @media (orientation: landscape) {
   .moon-calendar {
-    flex-direction: row;
-    width: 100dvw;
-    height: 50dvh;
   }
 }
 
 @media (orientation: portrait) {
   .moon-calendar {
-    flex-direction: column;
-    width: 50dvw;
-    height: 100dvh;
   }
 }
 </style>
