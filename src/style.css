@@ -24,6 +24,7 @@ body {
 #app {
   margin: 0 auto;
   text-align: center;
+  position: relative;
 }
 
 h1, h2, h3 {
@@ -41,10 +42,8 @@ h1, h2, h3 {
   align-content: center;
   justify-items: center;
   overflow: hidden;
-
   background-color: #fff;
   background: url('@/../public/nasa-moon-phases.gif');
-
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -53,10 +52,11 @@ h1, h2, h3 {
 .container {
   mix-blend-mode: screen;
   z-index: 10;
-
   display: grid;
   align-content: center;
   justify-items: center;
+  filter: contrast(1.25);
+  -webkit-filter: contrast(1.25);
 }
 
 table {

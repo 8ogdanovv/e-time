@@ -31,11 +31,12 @@
       </g>
     </svg>
 
-    <svg viewBox="0 0 2000 2000" id="lunar-day-angle">
+
+    <svg v-for="lda, i in getMoonDay()" viewBox="0 0 2000 2000" :class="'lunar-day-angle lunar-day-angle' + lda" :key="i">
       <polygon
         points="1000 1000 1000 0 1215 0"
         stroke="green"
-        fill="#cb43cb"
+        :fill="lda == getMoonDay() ? '#cb43cb' : '#cb43cb66'"
         stroke-width="0"
       />
     </svg>
@@ -53,8 +54,11 @@ const cardinalAngles = ref(Array.from({ length: 7 }, (_, index) => index * 60))
 
 function passMoonDayFromJsToCss(date = new Date()) {
   const moonDay = getMoonDay(date)
-  const lunarDayAngle = document.querySelector('#lunar-day-angle')
-  lunarDayAngle.style.setProperty('--moon-day', `${moonDay}`)
+  const lunarDayAngles = document.querySelectorAll('.lunar-day-angle')
+  console.log(lunarDayAngles)
+  for (let i = 0; i < lunarDayAngles.length; i++) {
+    lunarDayAngles[i].style.setProperty('--moon-day', `${i + 1}`)
+  }
 }
 
 onMounted(() => {
@@ -101,8 +105,8 @@ onMounted(() => {
 
 #six-box {
   opacity: 0.5;
-  z-index: 1;
 }
+
 .back-design {
   stroke: #cb43cb88;
   stroke-width: 1px;
@@ -113,9 +117,9 @@ onMounted(() => {
   stroke-width: 6px;
 }
 
-#lunar-day-angle {
+.lunar-day-angle {
+  position: absolute;
   opacity: 0.571428;
-  z-index: 0;
   transform: scale(2.5) rotate(calc((var(--moon-day) - 1) * 12deg));
   -webkit-transform: scale(2.5) rotate(calc((var(--moon-day) - 1) * 12deg));
   -moz-transform: scale(2.5) rotate(calc((var(--moon-day) - 1) * 12deg));
