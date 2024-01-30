@@ -22,7 +22,8 @@
             @click="(e) => $parent.handleDateClick(e, day, e.target)"
             :class="{
               'moon-day': day.moon === getMoonDay(currentDate) && day.current
-              && new Date(day.date).getMonth() === new Date().getMonth(),
+              && new Date(day.date).getMonth() === new Date().getMonth()
+              && new Date(day.date).getDate() === new Date().getDate(),
               current: day.current
             }"
             :title="`${day.date.slice(0, 10)} Solar date`"
@@ -40,12 +41,11 @@
 </template>
 
 <script setup>
-import { ref, defineProps, defineEmits } from 'vue'
+import { ref, defineProps } from 'vue'
 import { getFirstSunday, getLastSaturday, getMoonDay } from '@/utils/dateUtils.js'
 import { getGregCalendar } from '@/utils/getCalendar.js'
 
 const { date, eventHandler } = defineProps(['date', 'eventHandler'])
-const emit = defineEmits(['dateClick'])
 const currentDate = date || new Date()
 
 const prevMonthData = getGregCalendar(new Date(getFirstSunday(new Date())))
@@ -54,20 +54,6 @@ const nextMonthData = getGregCalendar(new Date(getLastSaturday(new Date())))
 
 const months = ref([prevMonthData, currMonthData, nextMonthData])
 const weekDays = ref(['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'])
-
-function handleDateClick(e, day) {
-  console.log('clicked on', e, day)
-  const info = {
-    date: day.date,
-    moon: day.moon,
-    current: day.current,
-    target: e.target
-  }
-  // eventHandler(info)
-  console.log(info)
-  console.table(emit)
-  // emit('dateClick', info)
-}
 </script>
 
 <style lang="scss">
@@ -87,16 +73,6 @@ function handleDateClick(e, day) {
     thead th {
       background: #4c44;
     }
-  }
-}
-
-@media (orientation: landscape) {
-  .greg-calendar {
-  }
-}
-
-@media (orientation: portrait) {
-  .greg-calendar {
   }
 }
 </style>

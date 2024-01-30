@@ -2,7 +2,7 @@
   <div class="display-info calendars" @mouseover="handleMouseOver">
 
     <span class="light-spot"></span>
-    <slot @dateClick="handleDateClick"></slot>
+    <slot @date-click="handleDateClick"></slot>
 
     <div v-if="dateClicked" class="info">
       <section class="head">
@@ -15,7 +15,7 @@
         <button @click="closeInfo">X</button>
       </section>
       <section class="body">
-        <img :src="absPath + getTwoDigits(dateClicked.moon) + '.png'" :alt="moonImage" class="moon-image">
+        <img :src="absPath + getTwoDigits(dateClicked.moon) + '.png'" :alt="dateClicked.moon" class="moon-image">
 
         <table>
           <thead>
@@ -58,14 +58,14 @@
 </template>
 
 <script setup>
-import { defineExpose, ref, onMounted } from 'vue'
+import { defineExpose, ref } from 'vue'
 
 const base = import.meta.env.BASE_URL
 const absPath = window.location.origin + base
 
-const dateClicked = ref(null);
+const dateClicked = ref(null)
 
-const getTwoDigits = (moon) => String(moon).length < 2 ? '0' + moon : moon;
+const getTwoDigits = (moon) => String(moon).length < 2 ? '0' + moon : moon
 
 const types = ['Nanda', 'Bhadra', 'Jāya', 'Ṛkta', 'Pūrṇa']
 const elements = ['Fire', 'Earth', 'Ākāśa', 'Water', 'Vāyu']
@@ -99,14 +99,12 @@ const tithis = [
 
 const closeInfo = () => dateClicked.value = null
 
-const showLightSpot = ref(false);
-
 function handleDateClick(e, info, target) {
   const targetClasses = target.classList.value.split(' ')
-  // console.log(e, info, targetClasses.includes('greg'))
   dateClicked.value = info
 }
 
+// Expose the function to the parent component
 defineExpose({ handleDateClick })
 </script>
 

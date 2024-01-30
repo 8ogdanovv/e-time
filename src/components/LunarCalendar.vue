@@ -32,7 +32,12 @@
     </svg>
 
 
-    <svg v-for="lda, i in getMoonDay()" viewBox="0 0 2000 2000" :class="'lunar-day-angle lunar-day-angle' + lda" :key="i">
+    <svg
+      v-for="lda, i in getMoonDay()"
+      viewBox="0 0 2000 2000"
+      :class="'lunar-day-angle lunar-day-angle' + lda"
+      :key="i"
+    >
       <polygon
         points="1000 1000 1000 0 1215 0"
         stroke="green"
@@ -52,18 +57,17 @@ const { date, refresh } = defineProps(['background', 'date', 'refresh'])
 const backAngles = ref(Array.from({ length: 37 }, (_, index) => index * 12))
 const cardinalAngles = ref(Array.from({ length: 7 }, (_, index) => index * 60))
 
-function passMoonDayFromJsToCss(date = new Date()) {
-  const moonDay = getMoonDay(date)
+function passMoonDayFromJsToCss() {
   const lunarDayAngles = document.querySelectorAll('.lunar-day-angle')
-  console.log(lunarDayAngles)
+
   for (let i = 0; i < lunarDayAngles.length; i++) {
     lunarDayAngles[i].style.setProperty('--moon-day', `${i + 1}`)
   }
 }
 
 onMounted(() => {
-  passMoonDayFromJsToCss(date)
-  if (refresh) setInterval(() => passMoonDayFromJsToCss(date), refresh)
+  passMoonDayFromJsToCss()
+  if (refresh) setInterval(() => passMoonDayFromJsToCss(), refresh)
 })
 </script>
 
@@ -92,7 +96,6 @@ onMounted(() => {
 .lunar-calendar::after {
   @extend %abs100dv;
   content: '';
-  /* background: url('../assets/nasa-moon-phases.gif'); */
 }
 
 #back-box,

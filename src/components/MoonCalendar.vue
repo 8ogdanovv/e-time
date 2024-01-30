@@ -33,10 +33,12 @@
             "
             :class="{
               'moon-day': day.moon === getMoonDay(currentDate)
-                && new Date(day.date).getMonth() === new Date().getMonth(),
+                && new Date(day.date).getMonth() === new Date().getMonth()
+                && day.current,
               'sun-day': new Date(currentDate).getMonth() === new Date(day.date).getMonth()
                 && new Date(currentDate).getDate() === new Date(day.date).getDate(),
-              'current': day.current && index === 1
+              'current': day.current
+                && index === 1
             }"
           >
             {{ new Date(day.date).getDate() }}
@@ -78,32 +80,11 @@ const weekDays = ref(['Mo', 'Tu', 'We', 'Th', 'Fr'])
     filter: contrast(2);
   }
 
-/*  [data-moon]::after {
-    content: attr(data-moon);
-    position: absolute;
-    background: #8888;
-
-    width: 100%;
-  
-    top: 0;
-    left: 0;
-  }
-*/
   .--table0,
   .--table2 {
     thead th {
       background: #cb43cb88;
     }
-  }
-}
-
-@media (orientation: landscape) {
-  .moon-calendar {
-  }
-}
-
-@media (orientation: portrait) {
-  .moon-calendar {
   }
 }
 </style>

@@ -74,15 +74,13 @@ onMounted(() => {
   height: 100dvh;
 }
 
-#page {
-}
-
 %flex-center {
   display: flex;
   justify-content: center;
   align-items: center;
 }
 /* #endregion Extends */
+
 /* #region Mixins */
 @mixin rotation($duration) {
   animation-name: stepOn60;
@@ -110,6 +108,7 @@ onMounted(() => {
   height: #{$width * 2};
 }
 /* #endregion */
+
 /* #region Variables */
 $c-seconds: rgb(0, 255, 47);
 $c-sec-axis: rgb(0, 255, 47);

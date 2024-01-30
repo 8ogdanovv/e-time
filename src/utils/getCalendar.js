@@ -1,7 +1,6 @@
-import { getFirstSunday, getLastSaturday, getMoonPhaseDates, getMoonDay, getBareDate } from './dateUtils'
+import { getFirstSunday, getLastSaturday, getMoonPhaseDates, getMoonDay } from './dateUtils'
 
 function getGregCalendar(date = new Date(), isCurrent = false) {
-  const dateCopy = new Date(date.getTime())
   const calendar = []
   let currentDate = getFirstSunday(date)
   let endDate = getLastSaturday(date)

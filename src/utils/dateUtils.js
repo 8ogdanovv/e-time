@@ -1,7 +1,7 @@
 const SYNODIC_MONTH_DAYS = 29.530588853 // commonly used approximation || another value - 29.53058867
 const SYNODIC_MONTH_MILLIS = SYNODIC_MONTH_DAYS * 24 * 60 * 60 * 1000
 
-function getBareDate(date) {
+const getBareDate = (date) => {
   return new Date(`${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate()}`)
 }
 
@@ -56,5 +56,4 @@ export {
   getLastSaturday,
   getMoonDay,
   getMoonPhaseDates,
-  getBareDate,
 }
