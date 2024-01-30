@@ -33,7 +33,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, defineProps, computed } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 
 const { date } = defineProps(['date'])
 const time = computed(() => date || new Date()).value

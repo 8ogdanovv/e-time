@@ -41,7 +41,7 @@
 </template>
 
 <script setup>
-import { ref, defineProps } from 'vue'
+import { ref } from 'vue'
 import { getFirstSunday, getLastSaturday, getMoonDay } from '@/utils/dateUtils.js'
 import { getGregCalendar } from '@/utils/getCalendar.js'
 

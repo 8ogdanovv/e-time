@@ -49,7 +49,7 @@
 </template>
 
 <script setup>
-import { defineProps, ref,onMounted } from 'vue'
+import { ref,onMounted } from 'vue'
 import { getMoonDay } from '@/utils/dateUtils.js'
 
 const { date, refresh } = defineProps(['background', 'date', 'refresh'])
