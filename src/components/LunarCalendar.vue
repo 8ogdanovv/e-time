@@ -41,7 +41,7 @@
       <polygon
         points="1000 1000 1000 0 1215 0"
         stroke="green"
-        :fill="lda == getMoonDay() ? '#cb43cb' : '#cb43cb66'"
+        :fill="lda == getMoonDay() ? '#0066cc' : '#0066cc66'"
         stroke-width="0"
       />
     </svg>
@@ -111,12 +111,12 @@ onMounted(() => {
 }
 
 .back-design {
-  stroke: #cb43cb88;
+  stroke: #0066cc88;
   stroke-width: 1px;
 }
 
 .six-cardinal {
-  stroke: #cb43cb;
+  stroke: #0066cc;
   stroke-width: 6px;
 }
 

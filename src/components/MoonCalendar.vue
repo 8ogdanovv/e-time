@@ -63,7 +63,7 @@ const weekDays = ref(['Mo', 'Tu', 'We', 'Th', 'Fr'])
 <style lang="scss">
 .moon-calendar {
   .current {
-    background: #cb43cb88;
+    background: #0066cc88;
   }
 
   .friday {
@@ -71,19 +71,19 @@ const weekDays = ref(['Mo', 'Tu', 'We', 'Th', 'Fr'])
   }
 
   .sun-day {
-    background: #4c44;
+    background: #ffcc0044;
   }
 
   .moon-day,
   .--table1 thead th {
-    background: #cb43cbbb;
+    background: #0066ccbb;
     filter: contrast(2);
   }
 
   .--table0,
   .--table2 {
     thead th {
-      background: #cb43cb88;
+      background: #0066cc88;
     }
   }
 }

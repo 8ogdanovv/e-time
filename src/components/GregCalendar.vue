@@ -59,19 +59,19 @@ const weekDays = ref(['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'])
 <style lang="scss">
 .greg-calendar {
   .current {
-    background: #4c44;
+    background: #ffcc0044;
   }
 
   .moon-day,
   .--table1 thead th {
-    background: #4c48;
+    background: #ffcc0088;
     filter: contrast(2);
   }
 
   .--table0,
   .--table2 {
     thead th {
-      background: #4c44;
+      background: #ffcc0044;
     }
   }
 }
