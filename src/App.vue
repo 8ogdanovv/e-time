@@ -2,8 +2,8 @@
   <NeonClock :date="new Date()"/>
   <LunarCalendar :date="new Date()" :refresh="60000" />
   <DisplayInfo>
-    <GregCalendar :date="new Date()" />
     <MoonCalendar :date="new Date()" />
+    <GregCalendar :date="new Date()" />
   </DisplayInfo>
 </template>
 
